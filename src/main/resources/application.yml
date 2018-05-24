@@ -1,0 +1,17 @@
+spring:
+  rabbitmq:
+    host: 192.168.48.130
+    username: guest
+    password: guest
+    port: 5672
+    publisher-confirms: true
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+    username: root
+    password: 123
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+#开启mybatis sql日志
+logging.level.cn.hassan: debug
