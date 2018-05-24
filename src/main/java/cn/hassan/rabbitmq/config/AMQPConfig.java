@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * Created with IntelliJ IDEA.
  * Author: hassan
  * Date: 2018/5/23 22:26
- * Description:
+ * Description: rabbitmq配置类
  */
 @Configuration
 public class AMQPConfig {
