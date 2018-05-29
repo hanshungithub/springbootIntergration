@@ -10,8 +10,14 @@ import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -27,6 +33,36 @@ public class IntergrationApplicationTests {
 
     @Autowired
     private JestClient jestClient;
+
+    @Autowired
+    private JavaMailSenderImpl mailSender;
+
+
+    /**
+     * 发送复杂邮件测试
+     */
+    @Test
+    public void complexMailTest() throws Exception {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+        helper.setSubject("复杂邮件发送测试");
+        helper.setText("<b>今天开会</b>",true);
+        //上传文件
+        helper.addAttachment("spring boot",new File("E:\\资料\\项目\\SpringBoot整合篇\\课件\\SpringBoot高级.pdf"));
+        helper.setTo("hshanshun@163.com");
+        helper.setFrom("hassanbox@qq.com");
+        this.mailSender.send(mimeMessage);
+    }
+
+    @Test
+    public void mailTest() {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setSubject("QQ 是发送邮件！");
+        message.setText("就是测试一下");
+        message.setTo("hshanshun@163.com");
+        message.setFrom("hassanbox@qq.com");
+        mailSender.send(message);
+    }
 
     @Test
     public void esTest() throws IOException {
